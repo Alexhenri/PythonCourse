@@ -1,7 +1,7 @@
 
 # HERE WE DISPLAY THE TIC TAC TOE GAME
 def display_Tic_Tac_Toe(mlist):
-
+	print('\n'*100)
 	print('  {}  |  {}  |   {}  '.format(mlist[0], mlist [1], mlist[2]))
 	print('------------------')
 	print('  {}  |  {}  |   {}  '.format(mlist[3], mlist [4], mlist[5]))
@@ -49,8 +49,15 @@ def getPlayersInput(gc, names, mlist):
 # HERE WE CHECK IF USER WANTS TO PLAY ANOTHER GAME
 def checkAnotherGame():
 	anotherGame = input('Start another game? (Y/N) \n')
+	while anotherGame not in ['Y','y','N', 'n']:
+		print("Sorry, i don't understand. Please type Y for Yes, N for No!")
+		anotherGame = input('Start another game? (Y/N) \n')
+
 	if anotherGame.lower() == 'y':
 		changeNames = input('With the same names? (Y/N) \n')
+		while changeNames not in ['Y','y','N', 'n']:
+			print("Sorry, i don't understand. Please type Y for Yes, N for No!")
+			changeNames = input('With the same names? (Y/N) \n')
 		if changeNames.lower() == 'y':
 			return (True, False)
 		else: 
