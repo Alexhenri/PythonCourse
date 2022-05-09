@@ -58,17 +58,17 @@ if __name__ == '__main__':
     welcome_war_game()
 
     # Create the Deck
-    my_alpha_deck = deck.Deck()
-    my_alpha_deck.create_Deck()
+    all_cards_deck = deck.Deck()
+    all_cards_deck.create_Deck()
 
     while True:
 
         # Randomize Deck and divide evenly - Deck 1 and Deck 2 - Both with 26 Cards
-        my_alpha_deck.rand_deck()
+        all_cards_deck.rand_deck()
         # Test to win - 7 win in 395 rounds (Won last round)  - 8 to win in 51 rounds (Won with Draw)
-        #my_alpha_deck.sort_deck_to_win(8)
-        deck1 = deck.Deck(my_alpha_deck.cards[0:26])
-        deck2 = deck.Deck(my_alpha_deck.cards[26::])
+        #all_cards_deck.sort_deck_to_win(8)
+        deck1 = deck.Deck(all_cards_deck.cards[0:26])
+        deck2 = deck.Deck(all_cards_deck.cards[26::])
 
         # Ask players info and give then their decks
         names = player.get_player_names()
@@ -85,25 +85,23 @@ if __name__ == '__main__':
         while True:
 
             # Game loop - true until one player win or one deck became empty
-            input('Tap enter to get one card from your deck.')
-            c1 = p1.deck.cards.pop()
-            pile_of_cards.append(c1)
 
-            c2 = p2.deck.cards.pop()
-            pile_of_cards.append(c2)
+            #input('Tap enter to get one card from your deck.')
+            c1 = p1.deck.grab_one_card()
+            c2 = p2.deck.grab_one_card()
 
-            c1.show_card()
-            c2.show_card()
+            pile_of_cards.extend([c1, c2])
+
+            print('{}: {}'.format(p1.name, c1))
+            print('{}: {}'.format(p2.name, c2))
 
             if c1.rank == c2.rank:
-                print('Draw!! This cards and one more of each player are added to the pile of cards')
+                print('War!! This cards and one more of each player are added to the pile of cards')
                 if not check_finish_game(p1.count, p2.count):
-                    c1 = p1.deck.cards.pop()
-                    pile_of_cards.append(c1)
+                    c1 = p1.deck.grab_one_card()
+                    c2 = p2.deck.grab_one_card()
 
-                    c2 = p2.deck.cards.pop()
-                    pile_of_cards.append(c2)
-
+                    pile_of_cards.extend([c1,c2])
                     pile_count += 4
             elif c1.rank > c2.rank:
                 print('{} won this round!! This cards and the pile of cards with {} are added to you deck'.format(p1.name, pile_count))

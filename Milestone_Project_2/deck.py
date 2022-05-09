@@ -41,6 +41,9 @@ class Deck():
     def rand_deck(self):
         random.shuffle(self.cards)
 
+    def grab_one_card(self):
+        return self.cards.pop()
+
     def sort_deck_to_win(self, n):
         c_up = []
         c = []
