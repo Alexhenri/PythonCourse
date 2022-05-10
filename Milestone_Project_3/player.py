@@ -5,22 +5,28 @@ Every player has a Name, Deck, Sum of Cards and amount of money
 
 # Importing Deck Class
 import deck
+import card
+
 
 class Player():
 
-    def __init__(self, name, money, d):
+    def __init__(self, name, money):
+
         self.name = name
-        self.deck = d
         self.money = money
-
-
+        self.list_of_cards = []
 
     def __str__(self):
         return ('{} - Amount of money:  $ {:.2f}'.format(self.name, self.money))
 
     def show_player_cards(self):
         print("{} Cards:".format(self.name))
-        self.deck.print_all_deck()
+        for card in self.list_of_cards:
+            card.show_card()
+
+    def add_card_player(self, c):
+        self.list_of_cards.append(c)
+
 
 
 def get_player_infos():
@@ -36,4 +42,4 @@ def get_player_infos():
         except:
             print("Sorry, but we can't understand. Please enter with an amount of money.")
 
-    return(name, money)
+    return (name, money)

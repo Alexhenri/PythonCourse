@@ -2,6 +2,7 @@ import unittest
 import card
 import deck
 import player
+import main
 
 
 class MyCardTest(unittest.TestCase):
@@ -25,7 +26,7 @@ class MyDeckTest(unittest.TestCase):
         c = card.Card('Ace', 'Spade')
         c1 = card.Card('Ace', 'Heart')
 
-        d = deck.Deck(cards=[c, c1])
+        d = deck.Deck()
         result = d.cards[1].suit
         self.assertEqual(result, "Heart")
 
@@ -43,6 +44,19 @@ class MyPlayerTest(unittest.TestCase):
     def test_player_get_infos(self):
         result = player.get_player_infos()
         self.assertEqual(result[0], 'Alex')
+
+class MySumTest(unittest.TestCase):
+
+    def test_get_best_sum(self):
+        c1 = card.Card('5', 'Hearts')
+        c2 = card.Card('6', 'Spades')
+        c3 = card.Card('Queen', 'Hearts')
+        #c4 = card.Card('Jack', 'Diamonds')
+        cards = [c1,c2,c3]
+        result = main.get_best_sum(cards)
+
+        self.assertEqual(result, 21)
+
 
 
 

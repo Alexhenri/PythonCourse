@@ -16,16 +16,9 @@ class Deck():
 
     def __init__(self):
         self.cards = []
-        self.sum_of_cards = 0
-        for item in self.cards:
-            self.sum_of_cards += item.value
-
-        self.print_all_deck()
 
     def create_Deck(self):
-        """
-        :type self: Deck
-        """
+
         cards = []
         for cs in card.card_suits:
             for cv in card.card_values:
@@ -44,8 +37,3 @@ class Deck():
 
     def remove_one_card(self):
         return self.cards.pop()
-
-    def add_one_card(self, card):
-        self.cards.append(card)
-        self.sum_of_cards += card.value
-
