@@ -21,8 +21,9 @@ class Player():
 
     def show_player_cards(self):
         print("{} Cards:".format(self.name))
-        for card in self.list_of_cards:
-            card.show_card()
+        print('', *self.list_of_cards, sep='\n')
+        #for card in self.list_of_cards:
+        #    card.show_card()
 
     def add_card_player(self, c):
         self.list_of_cards.append(c)
