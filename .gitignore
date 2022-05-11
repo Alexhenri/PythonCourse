@@ -1,0 +1,6 @@
+#ignored files
+
+#ignored directories 
+.ipynb_checkpoints/
+.idea/
+__pycache__/
