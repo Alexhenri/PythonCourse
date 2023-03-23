@@ -16,6 +16,9 @@ The Player wins if the sum of his cards are exactly 21 or the Computer Deal get 
 The Player loses if, while trying to get 21, he gets bust or if the Computer Deal sum is higher than the player sum,
     and so, closer to 21.
 
+Obs: In this game, if player get blackjack, meaning that the sum of his cards are exactly 21 he wins, not mattering
+what the Computer has.
+
     Cards values:
         2... 10 - Theirs perspective number
         Jack, Queen, King - 10
@@ -27,7 +30,7 @@ The Player loses if, while trying to get 21, he gets bust or if the Computer Dea
 import deck
 import player
 
-winner = {'Continue': 0, 'Win': 1, "Loose": 2}
+status = {'Continue': 0, 'Win': 1, "Loose": 2}
 
 
 def get_bet(player):
@@ -84,10 +87,10 @@ def check_end_game(list_of_cards):
     sum = get_best_sum(list_of_cards)
 
     if sum == 21:
-        return winner['Win']
+        return status['Win']
 
     if sum > 21:
-        return winner['Loose']
+        return status['Loose']
 
     return 0
 
@@ -207,17 +210,21 @@ if __name__ == '__main__':
         hit_cpu = check_end_game(computer_cards)
 
         # Computer Deal Hit loop
-        while hit_player == 0 and hit_cpu == 0:
+        # This meaning that no one bust yet
+        while hit_player == status['Continue'] and hit_cpu == status['Continue']:
             hit(all_deck, computer_cards)
             hit_cpu = check_end_game(computer_cards)
-            if hit_cpu == 0 and (get_best_sum(computer_cards) > get_best_sum(player.list_of_cards)):
-                hit_cpu = winner['Win']
+            if hit_cpu == status['Continue'] and (get_best_sum(computer_cards) > get_best_sum(player.list_of_cards)):
+                hit_cpu = status['Win']
 
-        if hit_player == winner['Loose'] or hit_cpu == winner['Win']:
+        if hit_player == status['Loose'] or hit_cpu == status['Win']:
             print("You loose. You lost yor bet")
-        else:
+        elif hit_player == status['Win'] or hit_cpu == status['Loose']:
             print("You win. You doubled your bet. ")
             player.money += (2 * bet)
+        else:
+            print('Tie!! You get your bet back! ')
+            player.money += bet
 
         print(player)
         if player.money == 0:
